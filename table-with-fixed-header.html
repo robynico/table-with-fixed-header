@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Easiest table with fixed header in horizontal and vertical scrolling</title>
+	<script src="https://code.jquery.com/jquery-1.11.3.js"></script>
+    <style type="text/css">
+		#table-wrapper {
+			overflow: hidden;
+			width: 500px;
+		}
+		
+        #table-relative-header {
+            position:relative;
+        }
+		
+        #table-scroll {
+            overflow: auto;
+            margin-top: 30px;
+			height: 150px;
+        }
+		
+        table tr{
+            text-align: left;
+        }
+
+        table tbody td{
+            background: #ffbc00;
+			border-bottom: 1px solid black;
+        }
+
+        table thead th .header {
+            position: absolute;
+            top: -30px;
+            z-index: 2;
+            height: 20px;
+            text-align: center;
+            color:#444;
+			background:#66C2E0;
+			padding:5px 10px;
+        }
+		
+		td{
+			padding:5px 10px; 
+			height: 35px;
+		}
+    </style>
+</head>
+<body>
+<div id="table-wrapper">
+	<div id="table-relative-header">
+		<div id="table-scroll">
+			<table cellspacing="0">
+				<thead>
+					<tr>
+						<th><span class="header">Col1</span></th>
+						<th><span class="header">Col2</span></th>
+						<th><span class="header">Col3</span></th>
+						<th><span class="header">Col4</span></th>
+						<th><span class="header">Col5</span></th>
+						<th><span class="header">Col6</span></th>
+						<th><span class="header">Col7</span></th>
+						<th><span class="header">Col8</span></th>
+						<th><span class="header">Col9</span></th>
+						<th><span class="header">Col10</span></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>I don't want to be this man any longer</td> 
+						<td>I don't want to be this man any longer</td>
+						<td>I don't want to be this man any longer</td>
+						<td>I don't want to be this man any longer</td>
+						<td>I don't want to be this man any longer</td>
+						<td>I don't want to be this man any longer</td>
+						<td>I don't want to be this man any longer</td>
+						<td>I don't want to be this man any longer</td>
+						<td>I don't want to be this man any longer</td>
+						<td>I don't want to be this man any longer</td>
+					</tr>
+					<tr>
+						<td>I don't want to be this man any longer</td> 
+						<td>I don't want to be this man any longer</td>
+						<td>I don't want to be this man any longer</td>
+						<td>I don't want to be this man any longer</td>
+						<td>I don't want to be this man any longer</td>
+						<td>I don't want to be this man any longer</td>
+						<td>I don't want to be this man any longer</td>
+						<td>I don't want to be this man any longer</td>
+						<td>I don't want to be this man any longer</td>
+						<td>I don't want to be this man any longer</td>
+					</tr>
+					<tr>
+						<td>I don't want to be this man any longer</td> 
+						<td>I don't want to be this man any longer</td>
+						<td>I don't want to be this man any longer</td>
+						<td>I don't want to be this man any longer</td>
+						<td>I don't want to be this man any longer</td>
+						<td>I don't want to be this man any longer</td>
+						<td>I don't want to be this man any longer</td>
+						<td>I don't want to be this man any longer</td>
+						<td>I don't want to be this man any longer</td>
+						<td>I don't want to be this man any longer</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+$('#table-scroll table tbody tr:nth-child(1) td').each(function(i, elt){
+	$('#table-scroll table thead th:nth-child('+(i+1)+') span').width($(elt).width());
+})
+$('#table-scroll').scroll(function(e) {
+        clearTimeout($.data(this, 'scrollTimer'));
+        $.data(this, 'scrollTimer', setTimeout(function(){
+            var scrollX = e.currentTarget.scrollLeft;
+            var x = 0;
+            $('#table-scroll table thead th span.header').each(function(i, elt){
+                var scrollLeft = x - scrollX;
+                x += $(elt).outerWidth();
+                $(elt).css({left:scrollLeft});
+            });
+        }, 250));
+    });
+</script>
+</body>
+</html>
